@@ -3,3 +3,4 @@ external
 submodules/*/
 cmake-build-release
 build
+.vscode
