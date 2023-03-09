@@ -1,0 +1,45 @@
+name: Build on Ubuntu
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: devkitpro/devkita64
+    steps:
+      - name: Set up env
+        run: |
+          echo "WS=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+      - name: Check out libnx
+        uses: actions/checkout@v3
+        with:
+          repository: switchbrew/libnx
+          path: libnx
+          ref: 4ece4e5b8f4c0944ff79ea77dae950c953fa4fe1
+      - name: Compile and install libnx
+        run: |
+          cd ${{ env.WS }}/libnx
+          make
+          make install
+      - name: Check out SimpleModManager
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+      - name: Compile SimpleModManager
+        run: |
+          cd ${{ env.WS }}
+          mkdir build
+          cd build
+          cmake ../ -DCMAKE_TOOLCHAIN_FILE=../devkita64-libnx.cmake
+          make
+      - name: Upload .nro
+        uses: actions/upload-artifact@v3
+        with:
+          name: SimpleModManager
+          path: ${{ env.WS }}/build/SimpleModManager.nro
+      - name: Upload .ovl
+        uses: actions/upload-artifact@v3
+        with:
+          name: SimpleModManager
+          path: ${{ env.WS }}/build/SimpleModManagerOverlay.ovl
+          
