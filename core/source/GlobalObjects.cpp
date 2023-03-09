@@ -3,10 +3,14 @@
 //
 
 #include "GlobalObjects.h"
+#include "toolbox.h"
 
 namespace GlobalObjects{
 
+  static std::streambuf *_cout_backup_;
   static bool _quit_now_triggered_ = false;
+  std::string _version_str_ = "v" + toolbox::get_app_version();
+  PadState gPad{};
 
   mod_browser &get_mod_browser() {
     return _mod_browser_;

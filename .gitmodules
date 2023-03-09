@@ -3,7 +3,7 @@
 	url = https://github.com/nadrino/borealis
 [submodule "submodules/libtesla"]
 	path = submodules/libtesla
-	url = https://github.com/nadrino/libtesla.git
+	url = https://github.com/cadewey/smm-libtesla.git
 [submodule "submodules/cpp-generic-toolbox"]
 	path = submodules/cpp-generic-toolbox
 	url = https://github.com/nadrino/cpp-generic-toolbox.git
